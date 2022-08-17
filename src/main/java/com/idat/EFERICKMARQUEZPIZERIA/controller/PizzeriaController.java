@@ -11,52 +11,49 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping(path="/pizzeria")
-
+@RequestMapping("/pizzeria")
 public class PizzeriaController {
-
 
     @Autowired
     private PizzeriaServiceImpl pizzeriaServ;
 
-    @GetMapping(path = "/listar")
-
-    public @ResponseBody ResponseEntity<List<Pizzeria>> listarProfesores(){
-        return new ResponseEntity<List<Pizzeria>>(pizzeriaServ.listar(),HttpStatus.OK);
+    @GetMapping("/listar")
+    public @ResponseBody
+    ResponseEntity<List<Pizzeria>> listarPizz(){
+        return new ResponseEntity<List<Pizzeria>>(pizzeriaServ.listar(), HttpStatus.OK);
     }
 
-    @RequestMapping(path="/buscar/{id}",method = RequestMethod.GET)
-    public ResponseEntity<Pizzeria> buscarProfesor(@PathVariable Integer id){
-        Pizzeria pizzeria = pizzeriaServ.ObtenerPorId(id);
-        if(pizzeria!=null) {
-            return new ResponseEntity<Pizzeria>(pizzeria,HttpStatus.OK);
+    @GetMapping("/buscar/{idPizzeria}")
+    public ResponseEntity<Pizzeria> buscarPizz(@PathVariable Integer idPizzeria){
+        Pizzeria pi = pizzeriaServ.ObtenerPorId(idPizzeria);
+        if(pi!=null) {
+            return new ResponseEntity<Pizzeria>(pi,HttpStatus.OK);
         }
         return new ResponseEntity<Pizzeria>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(path="/guardar", method = RequestMethod.POST)
-    public ResponseEntity<Void> guardar(@RequestBody Pizzeria pizzeria){
+    @PostMapping("/guardar")
+    public ResponseEntity<Void> guardarPizz(@RequestBody Pizzeria pizzeria){
         pizzeriaServ.guardar(pizzeria);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
-    @RequestMapping(path = "/actualizar", method = RequestMethod.PUT)
-    public ResponseEntity<Void> actualizarProfesor(@RequestBody Pizzeria pizzeria){
+    @PostMapping("actualizar")
+    public ResponseEntity<Void> actualizarPizz(@RequestBody Pizzeria pizzeria){
 
-        Pizzeria pro = pizzeriaServ.ObtenerPorId(pizzeria.getIdPizzeria());
+        Pizzeria  pi = pizzeriaServ.ObtenerPorId(pizzeria.getIdPizzeria());
 
-        if(pro!=null) {
+        if(pi!=null) {
             pizzeriaServ.actualizar(pizzeria);
             return new ResponseEntity<Void>(HttpStatus.OK);
         }
-
         return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(path = "/eliminar/{idPizzeria}",method=RequestMethod.DELETE)
-    public ResponseEntity<Void> eliminar(@PathVariable Integer idPizzeria){
-        Pizzeria pizzeria = pizzeriaServ.ObtenerPorId(idPizzeria);
-        if(pizzeria!=null) {
+    @DeleteMapping("/eliminar/{idPizzeria}")
+    public ResponseEntity<Void> eliminarPizz(@PathVariable Integer idPizzeria){
+        Pizzeria pi = pizzeriaServ.ObtenerPorId(idPizzeria);
+        if(pi!=null) {
             pizzeriaServ.eliminar(idPizzeria);
             return new ResponseEntity<Void>(HttpStatus.OK);
         }
@@ -65,7 +62,5 @@ public class PizzeriaController {
 
     }
 
-
-
-
 }
+

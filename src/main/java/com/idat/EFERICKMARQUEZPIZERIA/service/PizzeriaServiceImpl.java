@@ -3,12 +3,14 @@ package com.idat.EFERICKMARQUEZPIZERIA.service;
 import com.idat.EFERICKMARQUEZPIZERIA.model.Pizzeria;
 import com.idat.EFERICKMARQUEZPIZERIA.repository.PizzeriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Service
-public class PizzeriaServiceImpl implements PizzeriaService {
+public class PizzeriaServiceImpl implements PizzeriaService{
+
     @Autowired
     private PizzeriaRepository repository;
 
@@ -27,6 +29,8 @@ public class PizzeriaServiceImpl implements PizzeriaService {
         repository.saveAndFlush(pizzeria);
     }
 
+
+
     @Override
     public void eliminar(Integer idPizzeria) {
         repository.deleteById(idPizzeria);
@@ -34,6 +38,8 @@ public class PizzeriaServiceImpl implements PizzeriaService {
 
     @Override
     public List<Pizzeria> listar() {
-        return repository.findAll();
+        return null;
     }
+
+
 }

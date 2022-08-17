@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Entity
 @Data
 @Table(name = "pizzeria")
 public class Pizzeria {
